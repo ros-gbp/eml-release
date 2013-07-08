@@ -16,5 +16,5 @@ tracks:
     release_tag: null
     ros_distro: hydro
     vcs_type: tar
-    vcs_uri: http://pr.willowgarage.com/downloads/eml-r36.tar.bz2
+    vcs_uri: http://pr.willowgarage.com/downloads/eml-r36.tar.gz
     version: 0.36.0
