@@ -88,15 +88,10 @@ class EtherCAT_PD_Buffer
   /// See note in class definition.
   unsigned int m_is_running;
 
-  /// Process data can be divided over MAX_CHUCKS packets 
-  /// of upto CHUNK_SIZE bytes
-  static const unsigned MAX_CHUNKS=4;
-  static const unsigned CHUNK_SIZE=1486;
-
-  /// Telegram(s) to be sent
-  LRW_Telegram *m_lrw_telegram[MAX_CHUNKS];
-  /// EtherCAT frame(s) to be sent
-  EC_Ethernet_Frame *m_lrw_frame[MAX_CHUNKS];
+  /// Telegram to be sent
+  LRW_Telegram m_lrw_telegram;
+  /// EtherCAT frame to be sent
+  EC_Ethernet_Frame m_lrw_frame;
 };
 
 #endif

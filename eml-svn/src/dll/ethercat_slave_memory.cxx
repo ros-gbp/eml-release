@@ -92,7 +92,7 @@ EC_ALControl::EC_ALControl(EC_State state, bool ack)
 EC_ALControl::EC_ALControl(const unsigned char * a_buffer)
   : EC_DataStruct(EC_Slave_RD[AL_Control].size)
 {
-  ec_log(EC_LOG_ERROR, "Not implemented yet\n");
+  log(EC_LOG_ERROR, "Not implemented yet\n");
 }
 
 unsigned char * 
@@ -147,8 +147,7 @@ EC_SIIControlStatus::EC_SIIControlStatus(bool eeprom_write_access,
     WriteOp(write_op),
     ReloadOp(reload_op),
     WriteError(write_error),
-    Busy(busy),
-    AcknowledgeError(false)
+    Busy(busy)
 {}
 
 EC_SIIControlStatus::EC_SIIControlStatus(const unsigned char * a_buffer)
@@ -161,7 +160,6 @@ EC_SIIControlStatus::EC_SIIControlStatus(const unsigned char * a_buffer)
   ReadOp = (bool) ((byte & 0x100) >> 8);
   WriteOp = (bool) ((byte & 0x200) >> 9);
   ReloadOp = (bool) ((byte & 0x400) >> 10);
-  AcknowledgeError = (bool) ((byte & 0x2000) >> 13);
   WriteError = (bool) ((byte & 0x4000) >> 14);
   Busy = (bool) ((byte & 0x8000) >> 15);
 }
@@ -175,7 +173,6 @@ EC_SIIControlStatus::dump(unsigned char * a_buffer) const
   byte |= ((EC_UINT) ReadOp ) << 8;
   byte |= ((EC_UINT) WriteOp ) << 9;
   byte |= ((EC_UINT) ReloadOp) << 10;
-  byte |= ((EC_UINT) AcknowledgeError) << 13;
   byte |= ((EC_UINT) WriteError) << 14;
   byte |= ((EC_UINT) Busy) << 15;
   return host2nw(a_buffer,byte);
@@ -205,7 +202,7 @@ EC_FMMU::EC_FMMU(EC_UDINT logical_start_address,
 EC_FMMU::EC_FMMU(const unsigned char * a_buffer)
   : EC_DataStruct(EC_Slave_RD[FMMU_0].size)
 {
-  ec_log(EC_LOG_ERROR, "Not implemented yet");
+  log(EC_LOG_ERROR, "Not implemented yet");
 }
 
 unsigned char *
@@ -248,7 +245,6 @@ EC_SyncMan::EC_SyncMan(EC_UINT physical_start_address,
     BufferType(buffer_type),
     Direction(direction),
     ALEventEnable(AL_event_enable),
-    ECATEventEnable(false),
     WatchdogEnable(watchdog_enable),
     WriteEvent(write_event),
     ReadEvent(read_event),
@@ -260,7 +256,7 @@ EC_SyncMan::EC_SyncMan(EC_UINT physical_start_address,
 EC_SyncMan::EC_SyncMan(const unsigned char * a_buffer)
   : EC_DataStruct(EC_Slave_RD[Sync_Manager_0].size)
 {
-  ec_log(EC_LOG_ERROR, "Not implemented yet\n");
+  log(EC_LOG_ERROR, "Not implemented yet\n");
 }
 
 unsigned char *
@@ -269,7 +265,7 @@ EC_SyncMan::dump(unsigned char * a_buffer) const
   a_buffer = host2nw(a_buffer,PhysicalStartAddress);
   a_buffer = host2nw(a_buffer,Length);
   // fixme explicit cast necessary here?
-  EC_USINT thirdbyte = BufferType | (Direction << 2) | ((EC_USINT) ECATEventEnable << 4) | ((EC_USINT) ALEventEnable << 5) | ((EC_USINT) WatchdogEnable << 6);
+  EC_USINT thirdbyte = BufferType | (Direction << 2) | ((EC_USINT) ALEventEnable << 5) | ((EC_USINT) WatchdogEnable << 6);
   a_buffer = host2nw(a_buffer,thirdbyte);
   EC_USINT fourthbyte = (EC_USINT) WriteEvent | ((EC_USINT) ReadEvent << 1) | ((EC_USINT) WatchdogTrigger << 2) | ((EC_USINT) QueuedState << 3) | (BufferedState << 4);
   a_buffer = host2nw(a_buffer,fourthbyte);

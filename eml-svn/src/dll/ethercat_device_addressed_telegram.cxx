@@ -42,9 +42,7 @@ static const EC_USINT APRD = 0x01; // Autoincrement Physical read
 static const EC_USINT NPRD = 0x04; // Node addressed Physical read
 static const EC_USINT APWR = 0x02; // Autoincrement Physical write
 static const EC_USINT NPWR = 0x05; // Node addressed Physical write
-static const EC_USINT APRW = 0x03; // Autoincrement Physical read_write
-static const EC_USINT NPRW = 0x06; // Node addressed Physical read-write
-static const EC_USINT ARMW = 0x0d; // Autoincrement Physical write
+static const EC_USINT ARMW = 0x0d; // Autoincrement Physical Read
 				   // Multiple write
 static const EC_USINT BRD  = 0x07; // Broadcast Read
 static const EC_USINT BWR  = 0x08; // Broadcast Write
@@ -135,30 +133,6 @@ APWR_Telegram::dump_command_field(unsigned char * a_buffer) const
 const unsigned char * APWR_Telegram::build_command_field(const unsigned char * a_buffer)
 {
   assert(a_buffer[0] == APWR);
-  return ++a_buffer;
-}
-
-// --------------------------------------------------
-// Auto Increment Physical Read Write Telegram
-// --------------------------------------------------
-APRW_Telegram::APRW_Telegram(EC_USINT a_idx, EC_UINT a_adp, EC_UINT a_ado, EC_UINT a_wkc,
-			     EC_UINT a_datalen, const unsigned char * a_data)
-  : DA_TG(a_idx, a_adp, a_ado, a_wkc, a_datalen, a_data)
-{
-}
-
-APRW_Telegram::~APRW_Telegram(){}
-
-unsigned char * 
-APRW_Telegram::dump_command_field(unsigned char * a_buffer) const
-{
-  a_buffer = host2nw(a_buffer, APRW);
-  return a_buffer;
-}
-
-const unsigned char * APRW_Telegram::build_command_field(const unsigned char * a_buffer)
-{
-  assert(a_buffer[0] == APRW);
   return ++a_buffer;
 }
 
@@ -261,32 +235,6 @@ const unsigned char * NPRD_Telegram::build_command_field(const unsigned char * a
   assert(a_buffer[0] == NPRD);
   return ++a_buffer;
 }
-
-
-// --------------------------------------------------
-// Node Addressed Physical Read Write Telegram
-// --------------------------------------------------
-NPRW_Telegram::NPRW_Telegram(EC_USINT a_idx, EC_UINT a_adp, EC_UINT a_ado, EC_UINT a_wkc,
-			     EC_UINT a_datalen, const unsigned char * a_data)
-  : DA_TG(a_idx, a_adp, a_ado, a_wkc, a_datalen, a_data)
-{
-}
-
-NPRW_Telegram::~NPRW_Telegram(){}
-
-unsigned char * 
-NPRW_Telegram::dump_command_field(unsigned char * a_buffer) const
-{
-  a_buffer = host2nw(a_buffer, NPRW);
-  return a_buffer;
-}
-
-const unsigned char * NPRW_Telegram::build_command_field(const unsigned char * a_buffer)
-{
-  assert(a_buffer[0] == NPRW);
-  return ++a_buffer;
-}
-
 
 // --------------------------------------------------
 // Auto Increment Physical Read Multiple Write Telegram
