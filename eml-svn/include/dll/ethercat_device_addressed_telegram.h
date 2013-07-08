@@ -134,6 +134,29 @@ class APWR_Telegram : public Device_Addressing_Telegram {
   virtual const unsigned char * build_command_field(const unsigned char * a_buffer);
 };
 
+/// Auto Increment Physical Read and Write Telegram (APRW)
+class APRW_Telegram : public Device_Addressing_Telegram {
+ public:
+  /// Constructor
+  /** @param a_idx index
+      @param a_adp auto increment address
+      @param a_ado physical memory address
+      @param a_wkc working counter
+      @param a_datalen data_length
+      @param a_data data to be read and written
+  */
+  APRW_Telegram(EC_USINT a_idx, EC_UINT a_adp, 
+		EC_UINT a_ado,EC_UINT a_wkc,
+		EC_UINT a_datalen, 
+		const unsigned char * a_data);
+			    
+  virtual                ~APRW_Telegram();
+
+ protected:
+  virtual unsigned char * dump_command_field(unsigned char * a_buffer) const;
+  virtual const unsigned char * build_command_field(const unsigned char * a_buffer);
+};
+
 /// Broadcast Write Telegram (BWR)
 class BWR_Telegram : public Device_Addressing_Telegram {
  public:
@@ -203,6 +226,31 @@ class NPWR_Telegram : public Device_Addressing_Telegram {
   virtual const unsigned char * build_command_field(const unsigned char * a_buffer);
 };
 
+/// Node Addressed Physical Read Write Telegram (NPRW)
+/** @note older versions of the spec and the ethereal plugin use FPRW
+    for this type
+*/
+class NPRW_Telegram : public Device_Addressing_Telegram {
+ public:
+  /// Constructor
+  /** @param a_idx index
+      @param a_adp slave address
+      @param a_ado physical memory address
+      @param a_wkc working counter
+      @param a_datalen data_length
+      @param a_data data to be written
+  */
+  NPRW_Telegram(EC_USINT a_idx, EC_UINT a_adp, 
+		EC_UINT a_ado,EC_UINT a_wkc,
+		EC_UINT a_datalen, 
+		const unsigned char * a_data);
+			    
+  virtual                ~NPRW_Telegram();
+
+ protected:
+  virtual unsigned char * dump_command_field(unsigned char * a_buffer) const;
+  virtual const unsigned char * build_command_field(const unsigned char * a_buffer);
+};
 
 /// Node Addressed Physical Read Telegram (NPRD)
 /** @note older versions of the spec and the ethereal plugin use FPWR
