@@ -68,7 +68,23 @@ bool EtherCAT_DataLinkLayer::txandrx(EtherCAT_Frame * a_frame)
 {
   bool succeed = m_if->txandrx(a_frame, m_if);
   if (!succeed)
-    log(EC_LOG_INFO, "DLL::txandrx() Error\n");
+    ec_log(EC_LOG_INFO, "DLL::txandrx() Error\n");
+  return succeed;
+}
+
+int EtherCAT_DataLinkLayer::tx(EtherCAT_Frame * a_frame)
+{
+  int handle = m_if->tx(a_frame, m_if);
+  if (handle < 0)
+    ec_log(EC_LOG_INFO, "DLL::tx Error\n");
+  return handle;
+}
+
+bool EtherCAT_DataLinkLayer::rx(EtherCAT_Frame * a_frame, int a_handle)
+{
+  bool succeed = m_if->rx(a_frame, m_if, a_handle);
+  if (!succeed)
+    ec_log(EC_LOG_INFO, "DLL::rx Error\n");
   return succeed;
 }
 
