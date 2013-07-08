@@ -1,7 +1,7 @@
-From 6c6c8f087d87e8fd46630b5eb548aa1cb1a32ada Mon Sep 17 00:00:00 2001
+From 8266bccc236768e50dab3f2ace8a72a54ac0f8cb Mon Sep 17 00:00:00 2001
 From: Austin Hendrix <ahendrix@willowgarage.com>
 Date: Mon, 8 Jul 2013 16:08:37 -0700
-Subject: [PATCH] Apply eml-r36.patch
+Subject: [PATCH 1/2] Apply eml-r36.patch
 
 ---
  eml-svn/CMakeLists.txt                             |    6 +-
