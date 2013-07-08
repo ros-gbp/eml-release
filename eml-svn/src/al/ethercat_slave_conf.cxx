@@ -109,6 +109,15 @@ EtherCAT_SlaveConfig::EtherCAT_SlaveConfig(EC_UDINT a_product_code,
     m_complex = true;
 }
 
+void EtherCAT_SlaveConfig::set_mbx_config(EtherCAT_MbxConfig *new_config)
+{ 
+  m_mbx_config = new_config;
+  if (m_mbx_config == NULL) 
+    m_complex = false;
+  else
+    m_complex = true; 
+}
+
 EtherCAT_SlaveConfig::~EtherCAT_SlaveConfig(){}
 
 // ==================================================
@@ -169,7 +178,7 @@ EtherCAT_SlaveDb::find(EC_UDINT productcode,
 	  }
     else i++;
   }
-  log(EC_LOG_WARNING, "EtherCAT_SlaveDb: No such Config, returning NULL!\n");
+  ec_log(EC_LOG_WARNING, "EtherCAT_SlaveDb: No such Config, returning NULL!\n");
   return NULL;
 }
 

@@ -33,6 +33,7 @@
  
 #include "dll/ethercat_telegram.h"
 #include "ethercat/ethercat_log.h"
+#include <assert.h>
 
 // Number of bits of the Reserved and NEXT field
 static const EC_UINT ETHERCAT_LEN_NUM_BITS = 11;
@@ -144,7 +145,7 @@ bool EC_Telegram::check_index(const unsigned char * buffer) const
   if (index == m_idx)
     return true;
   else{
-    log(EC_LOG_ERROR, "EC_Telegram::check_index(): Index field does not correspond with received data\n");
+    ec_log(EC_LOG_ERROR, "EC_Telegram::check_index(): Index field does not correspond with received data\n");
     return false;
   }
 }
@@ -168,14 +169,14 @@ bool EC_Telegram::check_lennext(const unsigned char * buffer) const
   nextbit = lennext & NEXT_BIT;
   if ( ((nextbit == NEXT_BIT) && (next == NULL)) ||
        ((nextbit == 0x0000) && (next != NULL)) ){
-    log(EC_LOG_ERROR, "EC_Telegram::check_lennext(): Next field does not correspond with received data\n");
+    ec_log(EC_LOG_ERROR, "EC_Telegram::check_lennext(): Next field does not correspond with received data\n");
     return false;
   }
   else // Extract len information
     {
       len = lennext & LEN_BIT;
       if (len != get_datalen()){
-	log(EC_LOG_ERROR, "EC_Telegram::check_lennext(): Len field does not correspond with received data\n");
+	ec_log(EC_LOG_ERROR, "EC_Telegram::check_lennext(): Len field does not correspond with received data\n");
 	return false;
       }
       return true;
@@ -185,3 +186,18 @@ bool EC_Telegram::check_lennext(const unsigned char * buffer) const
 // irq field is currently unused
 const EC_UINT EC_Telegram::m_irq = 0x0000;
 
+
+/** Attach a single a_telegram after this telegram in chain
+ */
+void EC_Telegram::attach(EC_Telegram *a_telegram) 
+{  
+  assert(this != a_telegram);    
+  assert(a_telegram->next == NULL);
+  assert(a_telegram->previous == NULL);
+  a_telegram->next = this->next;
+  a_telegram->previous = this;
+  if (this->next != NULL) {
+    this->next->previous = a_telegram;
+  }
+  this->next = a_telegram;
+}

@@ -77,14 +77,14 @@ EtherCAT_Router::stop()
   if (EtherCAT_Router::m_is_running > 0)
     --EtherCAT_Router::m_is_running;
   else
-    log(EC_LOG_INFO, "EtherCAT_Router already stopped...\n");
+    ec_log(EC_LOG_INFO, "EtherCAT_Router already stopped...\n");
 }
 
 void
 EtherCAT_Router::route() const
 {
   if ( EtherCAT_Router::m_is_running != 0){
-    // log(EC_LOG_INFO, "EtherCAT_Router::Routing\n");
+    // ec_log(EC_LOG_INFO, "EtherCAT_Router::Routing\n");
     EtherCAT_SlaveHandler * sh;
     for (unsigned int i = 0; i < m_al_instance->get_num_slaves() ; i++){
       sh = m_al_instance->m_slave_handler[i];
@@ -116,7 +116,7 @@ EtherCAT_Router::check_mbx(const EtherCAT_SlaveHandler * sh) const
       }
     }
     else {
-      log(EC_LOG_ERROR, "Router: Error checking mbx\n");
+      ec_log(EC_LOG_ERROR, "Router: Error checking mbx\n");
       return false;
     }
   }
@@ -151,12 +151,12 @@ EtherCAT_Router::post_mbxmsg(EtherCAT_MbxMsg * msg, const EtherCAT_SlaveHandler 
       return succeed;
     }
     else{
-      log(EC_LOG_ERROR, "Router::post_mbxmsg() error: SM sizes of source and destination do not match...!!\n");
+      ec_log(EC_LOG_ERROR, "Router::post_mbxmsg() error: SM sizes of source and destination do not match...!!\n");
       return false;
     }
   }
   else {
-    log(EC_LOG_ERROR, "Router Error: Destination address of MbxMsg is not a complex slave!!\n");
+    ec_log(EC_LOG_ERROR, "Router Error: Destination address of MbxMsg is not a complex slave!!\n");
     return false;
   }
 }
@@ -166,7 +166,7 @@ externC void route_msgs(void)
 {
   static EtherCAT_Router * EC_Router = EtherCAT_Router::instance();
   EC_Router->route();
-  // log(EC_LOG_INFO, "Routing Mbx msgs\n");
+  // ec_log(EC_LOG_INFO, "Routing Mbx msgs\n");
 }
 	  
       

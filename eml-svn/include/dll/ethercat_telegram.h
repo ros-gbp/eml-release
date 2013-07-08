@@ -78,6 +78,9 @@ class EC_Telegram : public EC_DataStruct
 						      ETHERCAT_TELEGRAM_HEADER_SIZE +
 						      ETHERCAT_TELEGRAM_WKC_SIZE; }
 
+  /// attach telegram to this one - ordering is somewhat arbitrary
+  void attach(EC_Telegram *a_telegram);
+
   /// Pointer to next telegram
   EC_Telegram *   next;
   /// Pointer to previous telegram
