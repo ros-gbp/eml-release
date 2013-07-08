@@ -153,7 +153,7 @@ EC_Ethernet_Frame::check_header(const unsigned char * a_buffer) const
       if (this->body_length() == (size_t) (frame_header & bodylength))
 	return true;
     }
-  ec_log(EC_LOG_ERROR, "building frame: checkheader failed\n");
+  log(EC_LOG_ERROR, "building frame: checkheader failed\n");
   return false;
 }
 

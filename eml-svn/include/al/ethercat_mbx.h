@@ -76,7 +76,7 @@ class EC_MbxMsgPriority
       if(priority < 4)
 	msg_priority = priority;
       else {
-	ec_log(EC_LOG_WARNING, "EC_MbxMsgPriority: Max Priority is 0x03, using 0x03\n");
+	log(EC_LOG_WARNING, "EC_MbxMsgPriority: Max Priority is 0x03, using 0x03\n");
 	msg_priority = 0x03;
       }
     }
