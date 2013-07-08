@@ -9,9 +9,10 @@ tracks:
     - git-bloom-generate -y rosdebian --prefix release/:{ros_distro} :{ros_distro}
       -i :{release_inc}
     devel_branch: null
+    last_version: 0.36.0
     name: upstream
     patches: hydro
-    release_inc: -1
+    release_inc: '0'
     release_repo_url: git@github.com:ros-gbp/eml-release.git
     release_tag: null
     ros_distro: hydro
