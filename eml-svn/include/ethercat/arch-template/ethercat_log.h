@@ -42,7 +42,7 @@
 #define EC_LOG_FATAL     0
 
 // Redefine this function if you're not using eCos...
-#define log(level, args...) \
+#define ec_log(level, args...) \
 if(level < CYGNUM_ETHERCATMASTER_LOG_LEVEL) diag_printf(args)
 
 #endif // __ethercat_log_h__
