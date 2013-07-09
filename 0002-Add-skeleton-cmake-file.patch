@@ -1,7 +1,7 @@
-From 47ed85fc76b23d1359d69ccd79d158c07e107dd3 Mon Sep 17 00:00:00 2001
+From 8fd573b93d5e580b5c642cca163294ae42f4e112 Mon Sep 17 00:00:00 2001
 From: Austin Hendrix <ahendrix@willowgarage.com>
 Date: Mon, 8 Jul 2013 16:21:32 -0700
-Subject: [PATCH 2/2] Add skeleton cmake file.
+Subject: [PATCH 2/3] Add skeleton cmake file.
 
 ---
  CMakeLists.txt |    3 +++
