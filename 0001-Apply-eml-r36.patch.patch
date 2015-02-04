@@ -1,40 +1,40 @@
-From c8113864311d4548e64ee6995803b73032b7bb80 Mon Sep 17 00:00:00 2001
+From 1ea411d943e8accfe6c0c86dfb41b0ab9bb57041 Mon Sep 17 00:00:00 2001
 From: Austin Hendrix <ahendrix@willowgarage.com>
 Date: Mon, 8 Jul 2013 16:08:37 -0700
 Subject: [PATCH 1/3] Apply eml-r36.patch
 
 ---
- eml-svn/CMakeLists.txt                             |    6 +-
- eml-svn/include/al/ethercat_FSM.h                  |    7 +
- eml-svn/include/al/ethercat_mbx.h                  |    2 +-
- eml-svn/include/al/ethercat_process_data.h         |   13 +-
- eml-svn/include/al/ethercat_slave_conf.h           |    3 +
- eml-svn/include/al/ethercat_slave_handler.h        |   14 +-
- .../dll/ethercat_device_addressed_telegram.h       |   48 +
- eml-svn/include/dll/ethercat_dll.h                 |   17 +-
- eml-svn/include/dll/ethercat_slave_memory.h        |   10 +-
- eml-svn/include/dll/ethercat_telegram.h            |    3 +
- .../ethercat/arch-RTnet/ethercat/ethercat_log.h    |    4 +-
- .../include/ethercat/arch-RTnet/ethercat/netif.h   |  148 ++-
- .../ethercat/arch-eCos/ethercat/ethercat_log.h     |    2 +-
- .../include/ethercat/arch-template/ethercat_log.h  |    2 +-
- eml-svn/src/CMakeLists.txt                         |    8 +-
- eml-svn/src/al/ethercat_AL.cxx                     |   93 +-
- eml-svn/src/al/ethercat_FSM.cxx                    |   44 +-
- eml-svn/src/al/ethercat_process_data.cxx           |   80 +-
- eml-svn/src/al/ethercat_router.cxx                 |   12 +-
- eml-svn/src/al/ethercat_slave_conf.cxx             |   11 +-
- eml-svn/src/al/ethercat_slave_handler.cxx          |   20 +-
- eml-svn/src/arch/RTnet/ethercat_xenomai_drv.c      |   53 +-
- eml-svn/src/arch/posix/ethercat_posix_drv.c        |  984 ++++++++++++++++++--
- .../src/dll/ethercat_device_addressed_telegram.cxx |   54 +-
- eml-svn/src/dll/ethercat_dll.cxx                   |   18 +-
- eml-svn/src/dll/ethercat_frame.cxx                 |    2 +-
- eml-svn/src/dll/ethercat_slave_memory.cxx          |   14 +-
- eml-svn/src/dll/ethercat_telegram.cxx              |   22 +-
- eml-svn/tests/posix/CMakeLists.txt                 |    1 +
- eml-svn/tests/posix/eval_test.cpp                  |    1 +
- eml-svn/tests/rtnet/eval_test.cpp                  |    1 +
+ eml-svn/CMakeLists.txt                             |   6 +-
+ eml-svn/include/al/ethercat_FSM.h                  |   7 +
+ eml-svn/include/al/ethercat_mbx.h                  |   2 +-
+ eml-svn/include/al/ethercat_process_data.h         |  13 +-
+ eml-svn/include/al/ethercat_slave_conf.h           |   3 +
+ eml-svn/include/al/ethercat_slave_handler.h        |  14 +-
+ .../dll/ethercat_device_addressed_telegram.h       |  48 +
+ eml-svn/include/dll/ethercat_dll.h                 |  17 +-
+ eml-svn/include/dll/ethercat_slave_memory.h        |  10 +-
+ eml-svn/include/dll/ethercat_telegram.h            |   3 +
+ .../ethercat/arch-RTnet/ethercat/ethercat_log.h    |   4 +-
+ .../include/ethercat/arch-RTnet/ethercat/netif.h   | 148 +++-
+ .../ethercat/arch-eCos/ethercat/ethercat_log.h     |   2 +-
+ .../include/ethercat/arch-template/ethercat_log.h  |   2 +-
+ eml-svn/src/CMakeLists.txt                         |   8 +-
+ eml-svn/src/al/ethercat_AL.cxx                     |  93 +-
+ eml-svn/src/al/ethercat_FSM.cxx                    |  44 +-
+ eml-svn/src/al/ethercat_process_data.cxx           |  80 +-
+ eml-svn/src/al/ethercat_router.cxx                 |  12 +-
+ eml-svn/src/al/ethercat_slave_conf.cxx             |  11 +-
+ eml-svn/src/al/ethercat_slave_handler.cxx          |  20 +-
+ eml-svn/src/arch/RTnet/ethercat_xenomai_drv.c      |  53 +-
+ eml-svn/src/arch/posix/ethercat_posix_drv.c        | 984 +++++++++++++++++++--
+ .../src/dll/ethercat_device_addressed_telegram.cxx |  54 +-
+ eml-svn/src/dll/ethercat_dll.cxx                   |  18 +-
+ eml-svn/src/dll/ethercat_frame.cxx                 |   2 +-
+ eml-svn/src/dll/ethercat_slave_memory.cxx          |  14 +-
+ eml-svn/src/dll/ethercat_telegram.cxx              |  22 +-
+ eml-svn/tests/posix/CMakeLists.txt                 |   1 +
+ eml-svn/tests/posix/eval_test.cpp                  |   1 +
+ eml-svn/tests/rtnet/eval_test.cpp                  |   1 +
  31 files changed, 1510 insertions(+), 187 deletions(-)
 
 diff --git a/eml-svn/CMakeLists.txt b/eml-svn/CMakeLists.txt
@@ -2791,5 +2791,5 @@ index f01456e..be78348 100644
  #include <al/ethercat_master.h>
  #include <al/ethercat_slave_handler.h>
 -- 
-1.7.9.5
+1.9.1
 

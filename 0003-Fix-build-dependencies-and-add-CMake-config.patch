@@ -1,12 +1,12 @@
-From e881cf595847d01e7fa01b3ee3a49b5de8806838 Mon Sep 17 00:00:00 2001
+From 730225f54363ede7896ab5345a033dca1da81210 Mon Sep 17 00:00:00 2001
 From: Austin Hendrix <ahendrix@willowgarage.com>
 Date: Tue, 9 Jul 2013 16:10:37 -0700
 Subject: [PATCH 3/3] Fix build dependencies and add CMake config.
 
 ---
- CMakeLists.txt                     |    2 ++
- EMLConfig.cmake                    |   21 +++++++++++++++++++++
- eml-svn/tests/posix/CMakeLists.txt |    1 +
+ CMakeLists.txt                     |  2 ++
+ EMLConfig.cmake                    | 21 +++++++++++++++++++++
+ eml-svn/tests/posix/CMakeLists.txt |  1 +
  3 files changed, 24 insertions(+)
  create mode 100644 EMLConfig.cmake
 
@@ -57,5 +57,5 @@ index 8a1405f..732ec1c 100644
  SET_TARGET_PROPERTIES(master_test PROPERTIES LINK_FLAGS "${POSIX_USER_LDFLAGS}")
 +ADD_DEPENDENCIES(master_test eml-dynamic)
 -- 
-1.7.9.5
+1.9.1
 

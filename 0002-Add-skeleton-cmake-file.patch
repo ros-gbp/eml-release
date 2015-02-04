@@ -1,10 +1,10 @@
-From 8fd573b93d5e580b5c642cca163294ae42f4e112 Mon Sep 17 00:00:00 2001
+From 109bce5ee41b9ff24445604817fd96035628f834 Mon Sep 17 00:00:00 2001
 From: Austin Hendrix <ahendrix@willowgarage.com>
 Date: Mon, 8 Jul 2013 16:21:32 -0700
 Subject: [PATCH 2/3] Add skeleton cmake file.
 
 ---
- CMakeLists.txt |    3 +++
+ CMakeLists.txt | 3 +++
  1 file changed, 3 insertions(+)
  create mode 100644 CMakeLists.txt
 
@@ -18,5 +18,5 @@ index 0000000..c4965f4
 +
 +add_subdirectory(eml-svn)
 -- 
-1.7.9.5
+1.9.1
 
