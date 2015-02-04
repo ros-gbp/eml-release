@@ -47,7 +47,7 @@ IF (BUILD_FOR_RTNET)
 
   # arch specific headers
   FILE( GLOB ARCH_RTNET_INCLS ${EML_SOURCE_DIR}/include/ethercat/arch-RTnet/ethercat/[^.]*.h )
-  INSTALL_FILES( /include/ethercat/ FILES ${ARCH_RTNET_INCLS})
+  INSTALL_FILES( /include/ethercat/arch-RTnet/ FILES ${ARCH_RTNET_INCLS})
 
 ENDIF(BUILD_FOR_RTNET)
 
@@ -78,7 +78,7 @@ IF (BUILD_FOR_POSIX)
 
   # arch specific headers
   FILE( GLOB ARCH_POSIX_INCLS ${EML_SOURCE_DIR}/include/ethercat/arch-RTnet/ethercat/[^.]*.h )
-  INSTALL_FILES( /include/ethercat/ FILES ${ARCH_POSIX_INCLS})
+  INSTALL_FILES( /include/ethercat/arch-RTnet/ FILES ${ARCH_POSIX_INCLS})
 
 ENDIF(BUILD_FOR_POSIX)
 
@@ -88,8 +88,8 @@ FILE( GLOB AL_INCLS ${EML_SOURCE_DIR}/include/al/[^.]*.h )
 INSTALL_FILES( /include/al/ FILES ${AL_INCLS})
 FILE( GLOB DLL_INCLS ${EML_SOURCE_DIR}/include/dll/[^.]*.h )
 INSTALL_FILES( /include/dll/ FILES ${DLL_INCLS})
-#FILE( GLOB ETHERCAT_INCLS ${EML_SOURCE_DIR}/include/ethercat/[^.]*.h )
-#INSTALL_FILES( /include/ethercat/ FILES ${ETHERCAT_INCLS})
+FILE( GLOB ETHERCAT_INCLS ${EML_SOURCE_DIR}/include/ethercat/[^.]*.h )
+INSTALL_FILES( /include/ethercat/ FILES ${ETHERCAT_INCLS})
 
 
 
