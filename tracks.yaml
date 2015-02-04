@@ -33,11 +33,11 @@ tracks:
     devel_branch: null
     last_version: 0.36.0
     name: upstream
-    patches: hydro
-    release_inc: '4'
+    patches: indigo
+    release_inc: '3'
     release_repo_url: git@github.com:ros-gbp/eml-release.git
     release_tag: null
-    ros_distro: hydro
+    ros_distro: indigo
     vcs_type: tar
     vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
-    version: 0.36.0
+    version: 0.36.0 

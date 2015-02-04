@@ -17,7 +17,7 @@ tracks:
     release_tag: null
     ros_distro: hydro
     vcs_type: tar
-    vcs_uri: pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
+    vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
     version: 0.36.0
   indigo:
     actions:
@@ -34,10 +34,10 @@ tracks:
     last_version: 0.36.0
     name: upstream
     patches: hydro
-    release_inc: '3'
+    release_inc: '4'
     release_repo_url: git@github.com:ros-gbp/eml-release.git
     release_tag: null
     ros_distro: hydro
     vcs_type: tar
-    vcs_uri: pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
+    vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
     version: 0.36.0
