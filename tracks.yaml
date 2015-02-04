@@ -34,7 +34,7 @@ tracks:
     last_version: 0.36.0
     name: upstream
     patches: indigo
-    release_inc: '4'
+    release_inc: '5'
     release_repo_url: git@github.com:ros-gbp/eml-release.git
     release_tag: null
     ros_distro: indigo
