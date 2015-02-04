@@ -17,7 +17,7 @@ tracks:
     release_tag: null
     ros_distro: hydro
     vcs_type: tar
-    vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
+    vcs_uri: pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
     version: 0.36.0
   indigo:
     actions:
@@ -39,5 +39,5 @@ tracks:
     release_tag: null
     ros_distro: hydro
     vcs_type: tar
-    vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
+    vcs_uri: pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
     version: 0.36.0
