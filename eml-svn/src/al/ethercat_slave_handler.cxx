@@ -32,12 +32,10 @@
 
  
 #include "al/ethercat_slave_handler.h"
-#include <assert.h>
 
 EtherCAT_SlaveHandler::EtherCAT_SlaveHandler(EC_UINT a_ring_position,
 					     EC_UDINT a_product_code,
 					     EC_UDINT a_revision,
-					     EC_UDINT a_serial,
 					     EC_FixedStationAddress a_station_address,
 					     EtherCAT_FMMU_Config * a_fmmu_config,
 					     EtherCAT_PD_Config * a_pd_config,
@@ -49,29 +47,17 @@ EtherCAT_SlaveHandler::EtherCAT_SlaveHandler(EC_UINT a_ring_position,
 			 a_fmmu_config,
 			 a_pd_config,
 			 a_mbx_config),
-    m_ring_position(a_ring_position),
-    m_serial(a_serial),
-    m_mbx_counter(0)
+    m_ring_position(a_ring_position)
 {}
 
 EtherCAT_SlaveHandler::EtherCAT_SlaveHandler(EC_UINT a_ring_position,
-					     const EtherCAT_SlaveConfig * a_sconf, EC_UDINT a_serial)
+					     const EtherCAT_SlaveConfig * a_sconf)
   : EC_ESM(this),
     EtherCAT_SlaveConfig(*a_sconf),
-    m_ring_position(a_ring_position),
-    m_serial(a_serial),
-    m_mbx_counter(0)
+    m_ring_position(a_ring_position)
 {}
 
 EtherCAT_SlaveHandler::~EtherCAT_SlaveHandler(){}
 
-
-EC_USINT EtherCAT_SlaveHandler::get_mbx_counter()
-{
-  m_mbx_counter = 1+(m_mbx_counter % 7);
-  assert(m_mbx_counter>0);
-  assert(m_mbx_counter<=7);
-  return m_mbx_counter;
-}
 
 

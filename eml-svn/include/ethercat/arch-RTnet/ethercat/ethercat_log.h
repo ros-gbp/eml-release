@@ -42,7 +42,7 @@
 #define EC_LOG_FATAL     0
 
 // Redefine this function if not using eCos...
-#define ec_log(level, args...) \
-  if (level <= EC_LOG_FATAL) fprintf(stderr, args)
+#define log(level, args...) \
+printf(args)
 
 #endif // __ethercat_log_h__
