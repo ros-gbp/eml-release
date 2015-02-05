@@ -40,4 +40,4 @@ tracks:
     ros_distro: indigo
     vcs_type: tar
     vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
-    version: 0.36.0
+    version: 1.8.14
