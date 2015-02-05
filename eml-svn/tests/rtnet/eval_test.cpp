@@ -40,6 +40,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dll/ethercat_dll.h>
+#include <unistd.h>
 #include <dll/ethercat_frame.h>
 #include <al/ethercat_master.h>
 #include <al/ethercat_slave_handler.h>
