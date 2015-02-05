@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
    <name>eml</name>
-   <version>1.8.14</version>
+   <version>1.8.15</version>
    <description>
       This is an implementation of the EtherCAT master protocol for the PR2
       robot based on the work done at Flanders' Mechatronics Technology Centre.
