@@ -83,6 +83,8 @@ bool
 		if (succeed == true){
 			static const EC_UINT AL_Status_Size = EC_Slave_RD[AL_Status].size;
 			unsigned char AL_Status_data[AL_Status_Size];
+                        for (unsigned i=0; i<AL_Status_Size; ++i)
+                          AL_Status_data[i] = 0;
 			NPRD_Telegram AL_status_telegram(m_logic_instance->get_idx(),
 														m_SH->get_station_address(),
 														EC_Slave_RD[AL_Status].ado,
@@ -98,11 +100,11 @@ bool
 				if ((status.State == a_state ) && (status.Change == false))
 					return true;
 				else 
-					log(EC_LOG_WARNING, "EC_ESM_Ops::set_state() Warning: State trans. failed (try %d), desired=%x, status=%x\n",tries,a_state,status.State);
+					ec_log(EC_LOG_WARNING, "EC_ESM_Ops::set_state() Warning: State trans. failed (try %d), desired=%x, status=%x\n",tries,a_state,status.State);
 			}
 		}
 		else {
-			log(EC_LOG_WARNING, "EC_ESM_Ops::set_state() Warning: Error sending control frame (try %d)\n", tries);
+			ec_log(EC_LOG_WARNING, "EC_ESM_Ops::set_state() Warning: Error sending control frame (try %d)\n", tries);
 			struct timespec sleept;
 			sleept.tv_sec = 0;
 			sleept.tv_nsec = 10*1000*1000; //10ms
@@ -115,7 +117,7 @@ bool
     tries++;
   }
   // Should never get here...
-  log(EC_LOG_ERROR, "EC_ESM_Ops::set_state() failed to set state after %d tries", EC_ESM_OPS_MAX_RETRIES);
+  ec_log(EC_LOG_ERROR, "EC_ESM_Ops::set_state() failed to set state after %d tries", EC_ESM_OPS_MAX_RETRIES);
   return false;
 }
 
@@ -143,7 +145,7 @@ EC_ESM_Ops::start_mbx_comm()
   EC_Ethernet_Frame address_frame(&address_tg);
   bool succeed = m_dll_instance->txandrx(&address_frame);
   if (succeed == false){
-    log(EC_LOG_ERROR, "Error setting Fixed Station Address\n");
+    ec_log(EC_LOG_ERROR, "Error setting Fixed Station Address\n");
     return succeed;
   }
   struct timespec sleept;
@@ -167,7 +169,7 @@ EC_ESM_Ops::start_mbx_comm()
     EC_Ethernet_Frame mbx_conf_frame(&mbx_conf_tg);
     succeed = m_dll_instance->txandrx(&mbx_conf_frame);
     if (succeed == false){
-      log(EC_LOG_ERROR, "Error setting SM0 conf for mbx\n");
+      ec_log(EC_LOG_ERROR, "Error setting SM0 conf for mbx\n");
       return succeed;
     }
 	 nanosleep( &sleept, 0);
@@ -179,7 +181,7 @@ EC_ESM_Ops::start_mbx_comm()
     mbx_conf_tg.set_wkc(m_logic_instance->get_wkc());
     succeed = m_dll_instance->txandrx(&mbx_conf_frame);
     if (succeed == false){
-      log(EC_LOG_ERROR, "Error setting SM1 conf for mbx\n");
+      ec_log(EC_LOG_ERROR, "Error setting SM1 conf for mbx\n");
       return succeed;
     }
 	 nanosleep( &sleept, 0);
@@ -219,6 +221,7 @@ EC_ESM_Ops::start_input_update()
   EC_Ethernet_Frame fmmu_frame(&fmmu_tg);
   unsigned int i = 0;
   
+  assert(m_SH->get_fmmu_config() != NULL);
   while ((succeed == true) && (i < m_SH->get_fmmu_config()->get_num_used_fmmus()))
     {
       (*(m_SH->get_fmmu_config()))[i].dump(fmmu_data);
@@ -234,7 +237,7 @@ EC_ESM_Ops::start_input_update()
 
   if (succeed == false) 
     {
-      log(EC_LOG_ERROR, "error writing fmmu config\n");
+      ec_log(EC_LOG_ERROR, "error writing fmmu config\n");
       return false;
     }
   
@@ -264,7 +267,7 @@ EC_ESM_Ops::start_input_update()
     }
   if (succeed == false) 
     {
-      log(EC_LOG_ERROR, "error writing SM config\n");
+      ec_log(EC_LOG_ERROR, "error writing SM config\n");
       return false;
     }
   
@@ -316,6 +319,12 @@ EC_ESM::EC_ESM(EtherCAT_SlaveHandler * a_SH)
 
 // ==================================================
 
+EC_State
+EC_ESM_InitState::get_state( ) const
+{
+  return EC_INIT_STATE;
+}
+
 bool
 EC_ESM_InitState::to_state(EC_ESM * a_ESM, EC_State a_state)
 {
@@ -349,6 +358,12 @@ EC_ESM_InitState::to_state(EC_ESM * a_ESM, EC_State a_state)
   return succeed;
 }
 
+EC_State
+EC_ESM_PreOpState::get_state( ) const
+{
+  return EC_PREOP_STATE;
+}
+
 bool
 EC_ESM_PreOpState::to_state(EC_ESM * a_ESM, EC_State a_state)
 {
@@ -377,6 +392,12 @@ EC_ESM_PreOpState::to_state(EC_ESM * a_ESM, EC_State a_state)
     // FIXME implement bootstrap state...
   }
   return succeed;
+}
+
+EC_State
+EC_ESM_SafeOpState::get_state( ) const
+{
+  return EC_SAFEOP_STATE;
 }
 
 bool
@@ -408,6 +429,13 @@ EC_ESM_SafeOpState::to_state(EC_ESM * a_ESM, EC_State a_state)
   }
   return succeed;
 }
+
+EC_State
+EC_ESM_OpState::get_state( ) const
+{
+  return EC_OP_STATE;
+}
+
 
 bool
 EC_ESM_OpState::to_state(EC_ESM * a_ESM, EC_State a_state)
