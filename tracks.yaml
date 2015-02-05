@@ -31,7 +31,7 @@ tracks:
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc}
     devel_branch: null
-    last_version: 1.8.15
+    last_version: 1.8.14
     name: upstream
     patches: indigo
     release_inc: '0'
@@ -40,4 +40,4 @@ tracks:
     ros_distro: indigo
     vcs_type: tar
     vcs_uri: http://pr2packages.clearpathrobotics.com/third-party/eml/eml-r36.tar.gz
-    version: 1.8.14
+    version: 1.8.15
