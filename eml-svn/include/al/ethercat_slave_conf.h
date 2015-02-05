@@ -160,13 +160,16 @@ class EtherCAT_SlaveConfig
   EC_FixedStationAddress get_station_address() const {return m_station_address; };
   /// Get FMMU config to be written when going to preop
   const EtherCAT_FMMU_Config * get_fmmu_config() const {return m_fmmu_config; };
+  void set_fmmu_config(EtherCAT_FMMU_Config *new_config) { m_fmmu_config = new_config; };
   /// Get PD Configuration (SMS)
   const EtherCAT_PD_Config * get_pd_config() const {return m_pd_config; };
+  void set_pd_config(EtherCAT_PD_Config *new_config) { m_pd_config = new_config; };
   /// Get configuration of Sync Man channel 0 and 1 for MBX
   /** @return pointer to config in case of complex slave, or NULL for
       a simple slave
   */
   const EtherCAT_MbxConfig * get_mbx_config() const { return m_mbx_config; };
+  void set_mbx_config(EtherCAT_MbxConfig *new_config);
   /// Check if the SlaveConfig is already used
   bool is_used() { return used; };
   /// The SlaveConfig is now used

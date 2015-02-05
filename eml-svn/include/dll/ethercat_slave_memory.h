@@ -49,6 +49,7 @@ static const size_t EC_DLInformationSize = 0xa; // 10 bytes
 */
 static const EC_UDINT EC_ProductCodeAddressInSII = 0x0000000a;
 static const EC_UDINT EC_RevisionAddressInSII = 0x0000000c;
+static const EC_UDINT EC_SerialAddressInSII = 0x0000000e;
 
 typedef enum {
   Type = 0,
@@ -245,7 +246,7 @@ static inline int FMMUx(int channel)
   case 14 : return FMMU_14; break;
   case 15 : return FMMU_15; break;
   default:
-    log(EC_LOG_ERROR, "FMMUx: No such channel %d\n",channel);
+    ec_log(EC_LOG_ERROR, "FMMUx: No such channel %d\n",channel);
     return -1;
   }
 }
@@ -270,7 +271,7 @@ static inline int Sync_Managerx(int channel)
   case 14 : return Sync_Manager_14; break;
   case 15 : return Sync_Manager_15; break;
   default:
-    log(EC_LOG_ERROR, "Sync_Managerx: No such channel %d\n",channel);
+    ec_log(EC_LOG_ERROR, "Sync_Managerx: No such channel %d\n",channel);
     return -1;
   }
 }
@@ -295,7 +296,7 @@ static inline int Watchdog_Time_Channelx(int channel)
   case 14 : return Watchdog_Time_Channel_14; break;
   case 15 : return Watchdog_Time_Channel_15; break;
   default:
-    log(EC_LOG_ERROR, "Watchdog_Time_Channelx: No such channel %d\n",channel);
+    ec_log(EC_LOG_ERROR, "Watchdog_Time_Channelx: No such channel %d\n",channel);
     return -1;
   }
 }
@@ -456,6 +457,8 @@ class EC_SIIControlStatus : public EC_DataStruct
   bool WriteError;
   /// Eeprom busy?
   bool Busy;
+  // Acknowledge Error
+  bool AcknowledgeError;
 };
 
 /// Class representing a bit position within a byte
@@ -630,6 +633,7 @@ class EC_SyncMan : public EC_DataStruct
   EC_BufferType BufferType;
   EC_Direction Direction;
   bool ALEventEnable;
+  bool ECATEventEnable;
   bool WatchdogEnable;
   bool WriteEvent;
   bool ReadEvent;
