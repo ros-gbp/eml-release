@@ -63,5 +63,5 @@ tracks:
     release_tag: null
     ros_distro: kinetic
     vcs_type: tar
-    vcs_uri: https://github.com/redheli/ethercat/raw/master/eml-r36.tar.bz2
+    vcs_uri: https://www.cse.unr.edu/~dave/eml-r36.tar.gz
     version: 1.8.15
