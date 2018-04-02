@@ -58,7 +58,7 @@ tracks:
     last_version: 1.8.15
     name: upstream
     patches: kinetic
-    release_inc: '0'
+    release_inc: '1'
     release_repo_url: git@github.com:ros-gbp/eml-release.git
     release_tag: null
     ros_distro: kinetic
