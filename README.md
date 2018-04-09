@@ -1,3 +1,26 @@
+## eml (kinetic) - 1.8.15-6
+
+The packages in the `eml` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release eml --track kinetic --rosdistro kinetic` on `Mon, 09 Apr 2018 03:56:24 -0000`
+
+The `eml` package was released.
+
+Version of package(s) in repository `eml`:
+
+- upstream repository: https://www.cse.unr.edu/~dave/eml/eml-r36.tar.gz
+- release repository: https://github.com/ros-gbp/eml-release.git
+- rosdistro version: `1.8.15-3`
+- old version: `1.8.15-5`
+- new version: `1.8.15-6`
+
+Versions of tools used:
+
+- bloom version: `0.6.4`
+- catkin_pkg version: `0.4.1`
+- rosdep version: `0.12.1`
+- rosdistro version: `0.6.6`
+- vcstools version: `0.1.40`
+
+
 ## eml (kinetic) - 1.8.15-5
 
 The packages in the `eml` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release eml --track kinetic --rosdistro kinetic` on `Mon, 09 Apr 2018 03:45:04 -0000`
