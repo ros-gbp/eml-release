@@ -53,10 +53,25 @@ class EtherCAT_DataLinkLayer
    */
   void                attach(struct netif * netif);
 
-  /// transmit and receive EtherCAT frame (blocking call!)
+  /// transmit and receive EtherCAT frame (blocking call!)  
   /** @param a_frame ethercat frame to be sent
+   *  NOTE that txandrx will retry sending lost frames.
   */
   bool                txandrx(EtherCAT_Frame * a_frame);
+
+  /// transmit an EtherCAT frame (non-blocking call)
+  /** @param a_frame ethercat frame to be sent
+   *  @return positive or zero handle on success, negative value for error 
+   *  Successfull tx MUST be followed by rx call.
+   */
+  int tx(EtherCAT_Frame * a_frame);
+
+  /// receive an EtherCAT frame previously sent by tx() (blocking call!)
+  /** @param a_frame ethercat frame to be sent
+   *  @param a_handle handle previously returned by tx()
+   *  @return false for error/dropped packet
+   */
+  bool rx(EtherCAT_Frame * a_frame, int a_handle);
 
   /// Destructor
   /** @todo some kind of smart pointer concept necessary for all these

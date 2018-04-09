@@ -31,6 +31,7 @@
 //===========================================================================
 
 
+#include <string.h>
 #include <errno.h>
 #include <signal.h>
 #include <pthread.h>	
@@ -151,12 +152,12 @@ static bool low_level_output(struct EtherCAT_Frame * frame, struct netif * netif
 		// The actual send
 		int len_send = send(sock,(unsigned char *)&msg_to_send,msg_len  ,0);
 		if(len_send < 0)
-			log(EC_LOG_FATAL, "low_level_output(): Cannot Send\n");
+			ec_log(EC_LOG_FATAL, "low_level_output(): Cannot Send\n");
 		else
 			result = true;	      
 	}
 	else { // higher level protocol error. Attempt to map to much data in one ethernet frame
-		log(EC_LOG_FATAL, "EtherCAT fatal: message buffer overflow\n");
+		ec_log(EC_LOG_FATAL, "EtherCAT fatal: message buffer overflow\n");
 		// Release the message buffer again
 	}
 
@@ -170,15 +171,42 @@ static bool low_level_input(struct EtherCAT_Frame * frame, struct netif * netif)
 	struct eth_msg *msg_received = (struct eth_msg *)buffer_receive;
 	//Receive message from socket
 	int sock = netif->socket_private;
-	int len_recv = recv(sock,buffer_receive,sizeof(buffer_receive),0);
-	if(len_recv < 0) {
-		//perror("low_level_input: Cannot receive msg: ");
-		//log(EC_LOG_ERROR, "low_level_input: Cannot receive msg: %d\n",len_recv);
+
+  int len_recv;
+  int tries=0;
+  static const int MAX_TRIES=3; // Maximum number of tries for recieving packets
+
+  do {
+      ++tries;
+      len_recv = recv(sock,buffer_receive,sizeof(buffer_receive),0);
+      if(len_recv < 0) {
+          //perror("low_level_input: Cannot receive msg: ");
+          ec_log(EC_LOG_ERROR, "low_level_input: Cannot receive msg: %d\n",len_recv);
+          return false;
+      }
+             
+      if (len_recv <= sizeof(ETH_ALEN + ETH_ALEN + 2)) {
+          ec_log(EC_LOG_ERROR, "low_level_input: recieved runt packet: %d\n",len_recv);
+          continue;
+      }
+         
+      if ( (msg_received->ether_shost[4] != netif->hwaddr[4]) ) {
+          ec_log(EC_LOG_ERROR, "low_level_input: got incorrect sequence number: %d, expected %d\n",
+                 msg_received->ether_shost[4], netif->hwaddr[4]);
+          continue;
+      }
+      else {
+          break;
+      }       
+  } while(tries < MAX_TRIES);
+
+  if (tries >= MAX_TRIES) {
+      ec_log(EC_LOG_ERROR, "low_level_input: recieved too many bad packets: %d\n",len_recv);
 		return false;
 	}
 
 	if ( ((msg_received->ether_type[0]) != 0x88) || (msg_received->ether_type[1]) != 0xA4) {
-		log(EC_LOG_ERROR, "low_level_input: No EtherCAT msg!\n");
+		ec_log(EC_LOG_ERROR, "low_level_input: No EtherCAT msg!\n");
 		return false;
 	}
 
@@ -186,7 +214,7 @@ static bool low_level_input(struct EtherCAT_Frame * frame, struct netif * netif)
 	int succes = framebuild(frame,msg_received->data);
 	if (succes != 0){
 		// FIXME decent error handling here
-		log(EC_LOG_ERROR, "low_level_input: framebuilding failed!\n");
+		ec_log(EC_LOG_ERROR, "low_level_input: framebuilding failed!\n");
 		return false;
 	}
   
@@ -200,30 +228,31 @@ static bool ec_rtdm_txandrx(struct EtherCAT_Frame * frame, struct netif * netif)
 	int tries = 0;
 	while (tries < MAX_TRIES_TX) {
 		pthread_mutex_lock (&txandrx_mut);
+    netif->hwaddr[4]++;
 		if (low_level_output(frame,netif)){
 			if (low_level_input(frame,netif)){
 				pthread_mutex_unlock(&txandrx_mut);
 				return true;
 			}
 			else{
-				//log(EC_LOG_ERROR, "low_level_txandrx: receiving failed\n");
+				ec_log(EC_LOG_ERROR, "low_level_txandrx: receiving failed\n");
 				pthread_mutex_unlock(&txandrx_mut);
 			}
 		}
 		else{
-			//log(EC_LOG_ERROR, "low_level_txandrx: sending failed\n");
+			ec_log(EC_LOG_ERROR, "low_level_txandrx: sending failed\n");
 			pthread_mutex_unlock(&txandrx_mut);
 		}
 		tries++;
 	}
-	log(EC_LOG_FATAL, "low_level_txandrx: failed: MAX_TRIES_TX: Giving up\n");
+	ec_log(EC_LOG_FATAL, "low_level_txandrx: failed: MAX_TRIES_TX: Giving up\n");
 	return false;
 }
 
 struct netif* init_ec(const char * interface) {
 	int sock = init_socket(interface);
 	if(sock < 0) {
-		log(EC_LOG_FATAL,"Socket initialisation failed\n");
+		ec_log(EC_LOG_FATAL,"Socket initialisation failed\n");
 		return 0;
 	}
 	struct netif* ni = (struct netif*)malloc(sizeof(struct netif));
