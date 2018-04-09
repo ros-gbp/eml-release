@@ -1,0 +1,22 @@
+From 9c5afef53f55c8e6d2d87958d2cf4c2b27e09be5 Mon Sep 17 00:00:00 2001
+From: David Feil-Seifer <dave@cse.unr.edu>
+Date: Sun, 8 Apr 2018 20:33:26 -0700
+Subject: [PATCH 2/2] added install rule for package.xml
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 074b403..56ec609 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,4 +2,4 @@ cmake_minimum_required(VERSION 2.8.3)
+ 
+ add_subdirectory(eml-svn)
+ 
+-install( FILES EMLConfig.cmake DESTINATION share/eml )
++install( FILES package.xml EMLConfig.cmake DESTINATION share/eml )
+-- 
+1.9.1
+
