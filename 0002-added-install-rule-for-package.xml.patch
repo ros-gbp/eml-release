@@ -1,4 +1,4 @@
-From 9c5afef53f55c8e6d2d87958d2cf4c2b27e09be5 Mon Sep 17 00:00:00 2001
+From daef57fd85ee5787141f4985bdddedf9d02a9b2c Mon Sep 17 00:00:00 2001
 From: David Feil-Seifer <dave@cse.unr.edu>
 Date: Sun, 8 Apr 2018 20:33:26 -0700
 Subject: [PATCH 2/2] added install rule for package.xml
