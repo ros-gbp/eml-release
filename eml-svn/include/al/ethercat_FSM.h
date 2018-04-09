@@ -114,6 +114,7 @@ class EC_ESM_State
       - EC_OP_STATE = 0x08
   */
   virtual bool to_state(EC_ESM * a_ESM, EC_State a_state) = 0;  
+  virtual EC_State get_state( ) const = 0;
  protected:
   static EC_ESM_InitState initState;
   static EC_ESM_PreOpState preopState;
@@ -146,6 +147,8 @@ class EC_ESM : public EC_ESM_Ops
       - EC_OP_STATE = 0x08
   */
   bool to_state(EC_State a_state){ return (m_esm_state->to_state(this,a_state)); }
+  
+  EC_State get_state() { return m_esm_state->get_state(); } 
 
   virtual ~EC_ESM(){};
   
@@ -165,24 +168,28 @@ class EC_ESM : public EC_ESM_Ops
 class EC_ESM_InitState : public EC_ESM_State
 {
  public:
+  virtual EC_State get_state( ) const;
   virtual bool to_state(EC_ESM * a_ESM, EC_State a_state);
 };
 
 class EC_ESM_PreOpState : public EC_ESM_State
 {
  public:
+  virtual EC_State get_state( ) const;
   virtual bool to_state(EC_ESM * a_ESM, EC_State a_state);
 };
 
 class EC_ESM_SafeOpState : public EC_ESM_State
 {
  public:
+  virtual EC_State get_state( ) const;
   virtual bool to_state(EC_ESM * a_ESM, EC_State a_state);
 };
 
 class EC_ESM_OpState : public EC_ESM_State
 {
  public:
+  virtual EC_State get_state( ) const;
   virtual bool to_state(EC_ESM * a_ESM, EC_State a_state);
 };
 
