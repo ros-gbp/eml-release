@@ -1,3 +1,26 @@
+## eml (melodic) - 1.8.15-0
+
+The packages in the `eml` repository were released into the `melodic` distro by running `/usr/bin/bloom-release --rosdistro melodic --track melodic eml` on `Tue, 05 Mar 2019 23:18:00 -0000`
+
+The `eml` package was released.
+
+Version of package(s) in repository `eml`:
+
+- upstream repository: https://www.cse.unr.edu/~dave/eml/eml-r36.tar.gz
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `1.8.15-0`
+
+Versions of tools used:
+
+- bloom version: `0.7.2`
+- catkin_pkg version: `0.4.10`
+- rosdep version: `0.15.0`
+- rosdistro version: `0.7.2`
+- vcstools version: `0.1.40`
+
+
 ## eml (kinetic) - 1.8.15-6
 
 The packages in the `eml` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release eml --track kinetic --rosdistro kinetic` on `Mon, 09 Apr 2018 03:56:24 -0000`
