@@ -1,0 +1,12 @@
+Source: ros-lunar-eml
+Section: misc
+Priority: extra
+Maintainer: David Feil-Seifer <dave@cse.unr.edu>
+Build-Depends: debhelper (>= 9.0.0), cmake
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-lunar-eml
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-catkin
+Description: This is an implementation of the EtherCAT master protocol for the PR2 robot based on the work done at Flanders' Mechatronics Technology Centre.
