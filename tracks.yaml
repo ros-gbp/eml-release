@@ -82,7 +82,7 @@ tracks:
     last_release: :{none}
     last_version: 1.8.15
     name: upstream
-    patches: kinetic
+    patches: lunar
     release_inc: '0'
     release_repo_url: git@github.com:ros-gbp/eml-release.git
     release_tag: null
