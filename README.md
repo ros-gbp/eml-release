@@ -1,3 +1,26 @@
+## eml (noetic) - 1.8.15-7
+
+The packages in the `eml` repository were released into the `noetic` distro by running `/usr/bin/bloom-release eml --rosdistro noetic --track noetic` on `Tue, 02 Mar 2021 08:53:27 -0000`
+
+The `eml` package was released.
+
+Version of package(s) in repository `eml`:
+
+- upstream repository: https://www.cse.unr.edu/~dave/eml/eml-r36.tar.gz
+- release repository: https://github.com/ros-gbp/eml-release.git
+- rosdistro version: `1.8.15-3`
+- old version: `1.8.15-6`
+- new version: `1.8.15-7`
+
+Versions of tools used:
+
+- bloom version: `0.10.1`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.20.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## eml (noetic) - 1.8.15-6
 
 The packages in the `eml` repository were released into the `noetic` distro by running `/usr/bin/bloom-release --track noetic --ros-distro noetic eml` on `Tue, 02 Mar 2021 08:13:54 -0000`
